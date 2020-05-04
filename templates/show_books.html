@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>show_Books</title>
+</head>
+<body>
+<ul>
+    {% for book in books %}
+        {% if book.status==1 %}
+        <li>书籍名称：{{ book.name }} ISBN编号：{{ book.isbn }}价格： {{ book.price }}库存：{{ book.num }}作者：{{ book.author }} <a href="{{ url_for('delete_book',book_id=book.id)}}">删除图书</a> </li>
+        {% endif %}
+    {% endfor %}
+
+</ul>
+{% for message in get_flashed_messages() %}
+        {{ message }}<br>
+    {% endfor %}
+</body>
+</html>
+<body>
+
+</body>
+</html>
