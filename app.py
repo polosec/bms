@@ -10,10 +10,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 app = Flask(__name__)
-
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1/flaskdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 app.secret_key = 'test'
 db = SQLAlchemy(app)
 class Book(db.Model):
@@ -80,5 +78,4 @@ def addbook():
             return redirect(url_for('showallbooks'))
     return  render_template('addbook.html',bookform=bookform)
 if __name__ == '__main__':
-
     app.run(debug=True)
