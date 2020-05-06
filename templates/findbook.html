@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>findbook</title>
+</head>
+<body>
+        <form method="post">
+            {{ form.csrf_token() }}
+            {{ form.name.label }}{{ form.name }}
+            {{ form.isbn.label }}{{ form.isbn }}
+            {{ form.submit }}
+        </form>
+{% if books!="" %}
+    查询结果：
+    {% for book in books %}
+        <li>
+            书名:{{ book.name }}
+            ISBN:{{ book.isbn }}
+            价格:{{ book.price }}
+            作者：{{ book.author }}
+            数量： {{ book.num }}
+        </li>
+    {% endfor %}
+{% endif %}
+{% for message in get_flashed_messages() %}
+        {{ message }}<br>
+{% endfor %}
+</body>
+</html>
