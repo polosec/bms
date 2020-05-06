@@ -5,7 +5,7 @@
 # @File    : forms.py
 # @Software: PyCharm
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField,FileField
 from wtforms.validators import DataRequired,EqualTo
 class BookForm(FlaskForm):
     name = StringField('书籍名称', validators=[DataRequired()])
@@ -27,4 +27,15 @@ class FindBookForm(FlaskForm):
     name=StringField('书名')
     isbn=StringField('isbn')
     submit=SubmitField('提交')
-
+class ForgotForm(FlaskForm):
+    username=StringField('用户名',validators=[DataRequired()])
+    email=StringField('邮箱',validators=[DataRequired()])
+    password = StringField('新密码', validators=[DataRequired()])
+    password_conf = StringField('确认密码', validators=[DataRequired(),EqualTo('password','两次密码不一致')])
+    submit=SubmitField('提交')
+class UploadForm(FlaskForm):
+    file=FileField('文件名')
+    submit=SubmitField('提交')
+class ModForm(FlaskForm):
+    email=StringField('邮箱',validators=[DataRequired()])
+    submit=SubmitField('提交')

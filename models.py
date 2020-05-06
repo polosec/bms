@@ -12,6 +12,7 @@ class User(db.Model):
     password=db.Column(db.String(20),nullable=False)
     email=db.Column(db.String(20))
     status=db.Column(db.Integer,default=0)
+    filename=db.Column(db.String(255),default='default.jpg')
     def __init__(self,u,p,e,s): ##初始化的时候传进来0 默认普通用户
         self.username=u
         self.password=p
