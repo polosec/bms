@@ -13,12 +13,18 @@
 <h2>您的个人信息：</h2>
 <li>头像：<img src="{{ url }}"><a href="{{ url_for('upload') }}">更换头像</a></li>
 <li>邮箱：{{ current_user.email }}</li>
+<li><a href="{{ url_for('findbook') }}">查找图书</a> </li>
+
 <li>权限：{% if current_user.status==1 %}
                 超级管理员：管理用户，管理图书，借阅图书
         {% else %}
             普通用户：借阅图书
     {% endif %}
 </li>
+{% if current_user.status==1 %}<li><a href="{{ url_for('manageuser') }}">用户管理</a></li>{% endif %}
+{% if current_user.status==1 %}<li><a href="{{ url_for('managebook') }}">图书管理</a></li>{% endif %}
+{% if current_user.bid!=0 %}<li>当前已借阅图书：{{ book.name }}</li>{% endif %}
+<li><a href="{{ url_for('returnbook',bid=current_user.bid)}}">还书</a></li>
 {% for message in get_flashed_messages() %}
         {{ message }}<br>
 {% endfor %}

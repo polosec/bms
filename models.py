@@ -12,12 +12,14 @@ class User(db.Model):
     password=db.Column(db.String(20),nullable=False)
     email=db.Column(db.String(20))
     status=db.Column(db.Integer,default=0)
-    filename=db.Column(db.String(255),default='default.jpg')
-    def __init__(self,u,p,e,s): ##初始化的时候传进来0 默认普通用户
+    url=db.Column(db.String(255),default='/upload/default.jpg')
+    js=db.Column(db.Integer,default=1)
+    bid=db.Column(db.Integer,default=0)
+    def __init__(self,u,p,e): ##初始化的时候传进来0 默认普通用户
         self.username=u
         self.password=p
         self.email=e
-        self.status=s
+
     def is_authenticated(self):
         return True
     def is_active(self):
@@ -37,6 +39,7 @@ class Book(db.Model):
     num=db.Column(db.Integer,default=1)
     author=db.Column(db.String(20))
     status=db.Column(db.Integer,default=1)
+    borrowable=db.Column(db.Integer,default=1)
     def __repr__(self):
         return 'Book: %s %s' % (self.name, self.author_id)
     def __init__(self,isbn,name,price,author,num):

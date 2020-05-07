@@ -20,7 +20,9 @@
             价格:{{ book.price }}
             作者：{{ book.author }}
             数量： {{ book.num }}
+            <a href="{{ url_for('borrowbook',isbn=book.isbn) }}">借阅图书</a>
         </li>
+
     {% endfor %}
 {% endif %}
 {% for message in get_flashed_messages() %}
