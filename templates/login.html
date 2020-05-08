@@ -1,16 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login to BMS</title>
-</head>
-<body>
-        <h1>login page</h1>
-        <form method="post">
-            {{ loginform.csrf_token() }}
-            {{ loginform.username.label }} {{ loginform.username }}
-            {{ loginform.password.label }} {{ loginform.password }}
-            {{ loginform.submit }}
+{% extends "base.html" %}
+
+    {% block title %}Login to BMS{% endblock %}
+{% block body %}
+<fieldset class="layui-elem-field layui-field-title">
+  <legend>登录</legend>
+        <form method="post" class="layui-form">
+                        {{ loginform.csrf_token() }}
+            <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px"> {{ loginform.username.label }}：</label>
+            <div class="layui-input-block">
+                {{  loginform.username(class="layui-input", style="width:40%", placeholder="请输入用户名") }}
+            </div>
+        </div>
+            <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px"> {{ loginform.password.label }}：</label>
+            <div class="layui-input-block">
+                {{  loginform.password(class="layui-input", style="width:40%", placeholder="请输入密码") }}
+            </div>
+        </div>
+           <div class="layui-form-item">
+            <div class="layui-input-block" style="margin-left:180px">
+                <div class="layui-input-inline login-btn">
+                    {{ loginform.submit(class="layui-btn") }}
+                </div>
+            </div>
+        </div>
         </form>
-</body>
-</html>
+</fieldset>
+{% endblock %}

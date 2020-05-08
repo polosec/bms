@@ -1,18 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>addbook</title>
-</head>
-<body>
-<form method="post">
-    {{ bookform.csrf_token() }}
-    {{ bookform.isbn.label }} {{ bookform.isbn }}
-    {{ bookform.name.label }}    {{ bookform.name}}
-    {{ bookform.price.label }} {{ bookform.price }}
-    {{ bookform.author.label }} {{ bookform.author }}
+{% if current_user.status==1 %}
+{% extends "adminbase.html" %}
+{% else %}{% extends "userbase.html" %}
+{% endif %}
+{% block title %}添加图书{% endblock %}
+{% block body %}
 
-    {{ bookform.submit }}
-</form>
-</body>
-</html>
+    <fieldset class="layui-elem-field layui-field-title">
+  <legend>添加图书</legend>
+  <div class="layui-field-box" style="font-size: medium;line-height: 30px;">
+      <br />
+      <form class="layui-form" method="post">
+        {{ bookform.csrf_token }}
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px">{{ bookform.isbn.label }}：</label>
+            <div class="layui-input-block">
+                {{ bookform.isbn(class="layui-input", style="width:40%", placeholder="请输入ISBN") }}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px">{{ bookform.name.label }}：</label>
+            <div class="layui-input-block">
+                {{ bookform.name(class="layui-input", style="width:40%", placeholder="请输入书名") }}
+            </div>
+        </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px">{{ bookform.price.label }}：</label>
+            <div class="layui-input-block">
+                {{ bookform.price(class="layui-input", style="width:40%", placeholder="请输入价格") }}
+            </div>
+        </div>
+           <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px">{{ bookform.author.label }}：</label>
+            <div class="layui-input-block">
+                {{ bookform.author(class="layui-input", style="width:40%", placeholder="请输入作者") }}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="margin-left:180px">
+                <div class="layui-input-inline login-btn">
+                    {{ bookform.submit(class="layui-btn") }}
+                </div>
+            </div>
+        </div>
+      </form>
+  </div>
+</fieldset>
+{% endblock %}

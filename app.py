@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from configs import db,loginmanager,app#,photos
 from models import Book,User
-from forms import RegisterForm,LoginForm,BookForm,FindBookForm,ForgotForm,UploadForm,ModForm
+from forms import RegisterForm,LoginForm,BookForm,FindBookForm,ForgotForm,UploadForm,ModForm,ChangepwdForm
 from flask import Flask, render_template, request, flash, redirect, url_for,session
 from flask_login import login_user, login_required,logout_user,current_user
 import sys,os
 reload(sys)
-upload_dir='C:\\Users\\69027\\Desktop\\bms\\upload'
+upload_dir='C:\\Users\\69027\\Desktop\\bms\\static\\upload'
 sys.setdefaultencoding('utf-8')
 db.init_app(app) #type:Flask
 @app.route('/delete_book/<book_id>')
@@ -73,6 +73,7 @@ def login():
             if(user):
                 login_user(user)
                 return  redirect(url_for('profile'))
+            else: flash('登陆失败')
     return  render_template('login.html',loginform=loginform)
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -170,7 +171,7 @@ def upload():
             else:    filename=file.filename
             user=User.query.filter(User.username==current_user.username).first()
             if user:
-                url = "/upload/"+filename
+                url = "/static/upload/"+filename
                 user.url=url
                 db.session.commit()
                 return redirect(url_for('profile'))
@@ -194,8 +195,12 @@ def modify():
 @login_required
 def manageuser():
     if current_user.status==1:
-        users=User.query.filter(User.status!=1).all()
-        return render_template('manageuser.html', users=users)
+        page=int(request.args.get('page',1))
+        per_page=int(request.args.get('per_page',5))
+        paginate=User.query.filter(User.status!=1).paginate(page,per_page,error_out=False)
+        users=paginate.items
+        ite=paginate.iter_pages()
+        return render_template('manageuser.html', users=users,paginate=paginate)
     return 'permission denied'
 @app.route('/managebook',methods=['GET','POST'])
 @login_required
@@ -224,5 +229,18 @@ def profile():
     user=User.query.filter(User.username==current_user.username).first()
     url=user.url
     return render_template('profile.html',book=book,url=url)
+@app.route('/changepwd',methods=['GET','POST'])
+@login_required
+def changepwd():
+    form=ChangepwdForm()
+    if request.method=="POST":
+        if form.validate_on_submit():
+            user=User.query.filter(User.id==current_user.id).first()
+            user.password=request.form.get('password')
+            db.session.commit()
+            flash('修改成功')
+        else :flash('修改失败')
+        return  redirect(url_for('profile'))
+    return render_template('changepwd.html',form=form)
 if __name__ == '__main__':
     app.run(host="127.0.0.1",debug=True)

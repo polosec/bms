@@ -10,7 +10,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 pymysql.install_as_MySQLdb()
 import  os
-app = Flask(__name__,static_folder='./upload')
+app = Flask(__name__,static_folder='./static')
 # photos = UploadSet('photos', IMAGES)
 # configure_uploads(app, photos)
 # patch_request_class(app)

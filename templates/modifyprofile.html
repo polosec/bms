@@ -1,15 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ModifyProfile</title>
-</head>
-<body>
-<form method="post">
+{% if current_user.status==1 %}
+{% extends "adminbase.html" %}
+{% else %}{% extends "userbase.html" %}
+{% endif %}
+{% block title %}
+    修改邮箱
+{% endblock %}
 
-    {{ form.csrf_token() }}
-    {{ form.email.label }}{{ form.email }}
-    {{ form.submit }}
-</form>
-</body>
-</html>
+{% block body %}
+<fieldset class="layui-elem-field layui-field-title">
+  <legend>修改邮箱</legend>
+  <div class="layui-field-box" style="font-size: medium;line-height: 30px;">
+      <br />
+      <form class="layui-form" method="post">
+        {{ form.csrf_token }}
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px">{{ form.email.label }}：</label>
+            <div class="layui-input-block">
+                {{ form.email(class="layui-input", style="width:40%", placeholder="请输入新邮箱") }}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width:150px">{{ form.email_conf.label }}：</label>
+            <div class="layui-input-block">
+                {{ form.email_conf(class="layui-input", style="width:40%", placeholder="再次输入新邮箱") }}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="margin-left:180px">
+                <div class="layui-input-inline login-btn">
+                    {{ form.submit(class="layui-btn") }}
+                </div>
+            </div>
+        </div>
+      </form>
+  </div>
+</fieldset>
+{% endblock %}

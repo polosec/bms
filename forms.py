@@ -38,4 +38,10 @@ class UploadForm(FlaskForm):
     submit=SubmitField('提交')
 class ModForm(FlaskForm):
     email=StringField('邮箱',validators=[DataRequired()])
+    email_conf=StringField('确认邮箱',validators=[DataRequired(),EqualTo('email')])
+
+    submit=SubmitField('提交')
+class ChangepwdForm(FlaskForm):
+    password=StringField('新密码',validators=[DataRequired()])
+    password_conf=StringField('确认密码',validators=[DataRequired()])
     submit=SubmitField('提交')

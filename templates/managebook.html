@@ -1,18 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>图书管理</title>
-</head>
-<body>
-图书列表
-<ul>
-     {% for book in books %}
-        <li>书籍名称：{{ book.name }} ISBN编号：{{ book.isbn }}价格： {{ book.price }}库存：{{ book.num }}作者：{{ book.author }} <a href="{{ url_for('delete_book',book_id=book.id) }}">删除图书</a></li>
+{% if current_user.status==1 %}
+{% extends "adminbase.html" %}
+{% else %}{% extends "userbase.html" %}
+{% endif %}
+{% block title %}
+图书管理
+{% endblock %}
+{% block body %}
+    <style>
+    td{
+        width: 80px;
+        height: 50px;
+        padding-left: 5px;
+    }
+    </style>
+<h1>所有图书</h1>
+    <table border="1">
+    <tr>
+        <th>书籍名称</th>
+        <th>ISBN</th>
+        <th>价格</th>
+        <th>库存</th>
+        <th>作者</th>
+        <th>删除</th>
+    </tr>
+
+        {% for book in books %}
+            <tr>
+            <td>{{ book.name }}</td> <td>{{ book.isbn }}</td> <td>{{ book.price }}</td><td>{{ book.num }}</td><td>{{ book.author }}</td> <td><a class="layui-btn"  href="{{ url_for('delete_book',book_id=book.id) }}">删除</a></td>
+            </tr>
     {% endfor %}
-</ul>
+
+
+    </table>
+
 {% for message in get_flashed_messages() %}
         {{ message }}<br>
-{% endfor %}
-</body>
-</html>
+    {% endfor %}
+{% endblock %}

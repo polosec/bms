@@ -1,36 +1,28 @@
-{% extends "base.html" %}
+{% if current_user.status==1 %}
+{% extends "adminbase.html" %}
+{% else %}{% extends "userbase.html" %}
+{% endif %}
 {% block title %}
-忘记密码
+    修改密码
 {% endblock %}
+
 {% block body %}
-     <fieldset class="layui-elem-field layui-field-title">
-  <legend>忘记密码</legend>
+<fieldset class="layui-elem-field layui-field-title">
+  <legend>修改密码</legend>
   <div class="layui-field-box" style="font-size: medium;line-height: 30px;">
       <br />
       <form class="layui-form" method="post">
         {{ form.csrf_token }}
-        <div class="layui-form-item">
-            <label class="layui-form-label" style="width:150px">{{ form.username.label }}：</label>
-            <div class="layui-input-block">
-                {{ form.username(class="layui-input", style="width:40%", placeholder="请输入用户名") }}
-            </div>
-        </div>
         <div class="layui-form-item">
             <label class="layui-form-label" style="width:150px">{{ form.password.label }}：</label>
             <div class="layui-input-block">
                 {{ form.password(class="layui-input", style="width:40%", placeholder="请输入新密码") }}
             </div>
         </div>
-          <div class="layui-form-item">
+        <div class="layui-form-item">
             <label class="layui-form-label" style="width:150px">{{ form.password_conf.label }}：</label>
             <div class="layui-input-block">
-                {{ form.password_conf(class="layui-input", style="width:40%", placeholder="请确认新密码") }}
-            </div>
-        </div>
-           <div class="layui-form-item">
-            <label class="layui-form-label" style="width:150px">{{ form.email.label }}：</label>
-            <div class="layui-input-block">
-                {{  form.email(class="layui-input", style="width:40%", placeholder="请输入邮箱") }}
+                {{ form.password_conf(class="layui-input", style="width:40%", placeholder="再次输入新密码") }}
             </div>
         </div>
         <div class="layui-form-item">
@@ -43,8 +35,4 @@
       </form>
   </div>
 </fieldset>
-
-{% for message in get_flashed_messages() %}
-        {{ message }}<br>
-{% endfor %}
 {% endblock %}
