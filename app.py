@@ -2,7 +2,7 @@
 from configs import db,loginmanager,app#,photos
 from models import Book,User
 from forms import RegisterForm,LoginForm,BookForm,FindBookForm,ForgotForm,UploadForm,ModForm,ChangepwdForm
-from flask import Flask, render_template, request, flash, redirect, url_for,session
+from flask import Flask, render_template, request, flash, redirect, url_for,session,render_template_string
 from flask_login import login_user, login_required,logout_user,current_user
 import sys,os
 reload(sys)
@@ -242,5 +242,12 @@ def changepwd():
         else :flash('修改失败')
         return  redirect(url_for('profile'))
     return render_template('changepwd.html',form=form)
+@app.route('/test/')
+def test():
+    code = request.args.get('id')
+    html = '''
+        <h3>%s</h3>
+    '''%(code)
+    return render_template_string(html)
 if __name__ == '__main__':
     app.run(host="127.0.0.1",debug=True)

@@ -8,12 +8,11 @@ import pymysql
 from  flask import  Flask
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import  CSRFProtect
 pymysql.install_as_MySQLdb()
 import  os
 app = Flask(__name__,static_folder='./static')
-# photos = UploadSet('photos', IMAGES)
-# configure_uploads(app, photos)
-# patch_request_class(app)
+CSRFProtect(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1/flaskdb'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOADED_PHOTOS_DEST'] = os.getcwd()  # 文件储存地址
