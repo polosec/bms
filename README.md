@@ -1,9 +1,5 @@
 # Boom Manage System
 ## Layui Flask MySQL
-## with CSRF,SQLI protection
-BOOK表的status代表是否显示：0的时候代表库存为0，不显示
-BOOK表的borrowable 代表是否允许被借阅，1代表允许被借阅；如果库存(num)全被借阅走，则置js为0，否则置为1.status表示图书是否显示
-User表bid 表示用户借走的图书的 id。默认为0 没借
 图书管理系统功能：
 用户登录√
 图书查询√
@@ -16,4 +12,5 @@ User表bid 表示用户借走的图书的 id。默认为0 没借
 用户个人信息界面（登陆后的页面），显示用户权限√
 个人信息修改 √
 用户注册√
-修改密码还没写！！
+修改密码√
+已启用CSRF防护，SSTI防护正在完善
