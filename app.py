@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for,sess
 from flask_login import login_user, login_required,logout_user,current_user
 import sys,os
 reload(sys)
-upload_dir='C:\\Users\\69027\\Desktop\\bms\\static\\upload'
+upload_dir=os.getcwd()+'\\static\\upload'
 sys.setdefaultencoding('utf-8')
 db.init_app(app) #type:Flask
 @app.route('/delete_book/<book_id>')
